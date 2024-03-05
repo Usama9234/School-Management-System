@@ -1,0 +1,42 @@
+﻿@* @model IEnumerable<School_Management_System.Models.Admin.Subjets>
+
+
+
+<div class="page-wrapper">
+
+    <div class="container-fluid">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubjectName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubjectId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubjectId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubjectId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</div> *@

@@ -1,0 +1,136 @@
+﻿@model School_Management_System.Models.Admin.StudentDetails
+
+@{
+    ViewData["Title"] = "EditStudent";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a a asp-action="ViewClasses">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Class</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title m-b-0"><i class="fas fa-calendar-alt"></i> Edit Student</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class=" card-body">
+                            <form asp-controller="Student" asp-action="EditStudent" method="post">
+                                <div class="form-horizontal">
+                                    <input asp-for="StudentId" type="hidden" />
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Class.ClassName" class="control-label col-md-4"></label>
+                                                <select asp-for="ClassId" class="form-control">
+                                                    @foreach (var item in Model.ClassesList)
+                                                    {
+                                                        <option value="@item.ClassId">@item.ClassName</option>
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="Class.ClassName" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="StudentName" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="StudentName" class="form-control" />
+                                                    <span asp-validation-for="StudentName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="StudentRollNo" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="StudentRollNo" class="form-control" />
+                                                    <span asp-validation-for="StudentRollNo" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label asp-for="Gender" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="Gender" class="form-control" />
+                                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="MobileNumber" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="MobileNumber" class="form-control" />
+                                                    <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="form-group">
+                                                    <label asp-for="StudentEmail" class="control-label col-md-2"></label>
+                                                    <div class="col-md-10">
+                                                        <input asp-for="StudentEmail" class="form-control" />
+                                                        <span asp-validation-for="StudentEmail" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="StudentAdress" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="StudentAdress" class="form-control" />
+                                                    <span asp-validation-for="StudentAdress" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="StudentDOB" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="StudentDOB" class="form-control" type="date" />
+                                                    <span asp-validation-for="StudentDOB" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Password" class="control-label col-md-2"></label>
+                                                <div class="col-md-10">
+                                                    <input asp-for="Password" class="form-control" />
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <button type="submit" class="btn btn-default">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.Subjects>
+
+@{
+    ViewData["Title"] = "ViewAllSubjects";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Students</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> Subjects</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Structure -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Table Heading -->
+                        <div class="row">
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+
+                        <!-- Table Content -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th><label>Class Name</label> </th>
+                                        <th><label>Action</label> </th>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><span asp-for="item.Class.ClassName">@item.Class.ClassName</span></td>
+                                        <td>
+                                            <a asp-action="ViewSubjects" asp-controller="Class" asp-route-classId="@item.Class.ClassId" class="btn btn-dark">
+                                                <i class="fas fa-plus-square"></i>
+                                                <span>
+                                                    <strong>ViewSubjects</strong>
+                                                </span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}
+

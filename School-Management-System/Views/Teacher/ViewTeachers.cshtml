@@ -1,0 +1,85 @@
+﻿@model IEnumerable<School_Management_System.Models.Admin.TeacherDetails>
+
+@{
+    ViewBag.Title = "ViewTeachers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Teachers</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> Teacher</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Structure -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Table Content -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>@Html.DisplayNameFor(model => model.TeacherName)</th>
+                                        <th>@Html.DisplayNameFor(model => model.TeacherEmail)</th>
+                                        <th>@Html.DisplayNameFor(model => model.MobileNumber)</th>
+                                        <th>@Html.DisplayNameFor(model => model.Gender)</th>
+                                        <th>@Html.DisplayNameFor(model => model.TeacherAdress)</th>
+                                        <th>@Html.DisplayNameFor(model => model.TeacherDOB)</th>
+                                        <th>@Html.DisplayNameFor(model => model.Password)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.TeacherName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TeacherEmail)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MobileNumber)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TeacherAdress)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TeacherDOB)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                                        <td>
+                                            <a asp-action="EditTeacher" asp-controller="Teacher" asp-route-id="@item.TeacherId" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/48763_file_edit_icon.png" /></a>
+                                            <a asp-action="DeleteTeacher" asp-controller="Teacher" asp-route-id="@item.TeacherId" class="btn btn-mini btn-outkine-orange icon-edit bigger-10"><img src="~/assets/616650_bin_delete_garbage_trash_icon.png" /></a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}

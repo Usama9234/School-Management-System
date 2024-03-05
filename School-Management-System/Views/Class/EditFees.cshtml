@@ -1,0 +1,88 @@
+﻿@model School_Management_System.Models.Admin.Fees
+
+@{
+    ViewBag.Title = "AddFees";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Fees</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Fees</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title m-b-0"><i class="fas fa-calendar-alt"></i> Session</h5>
+                    </div>
+                    <div class="row">
+                        <div class=" card-body">
+                            <form asp-controller="Class" asp-action="EditFees" method="post">
+
+                                <div class="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Class.ClassName" class="control-label col-md-4"></label>
+                                                <select asp-for="ClassId" class="form-control">
+                                                    @foreach (var item in Model.ClassesList)
+                                                    {
+                                                        <option value="@item.ClassId">@item.ClassName</option>
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="Class.ClassName" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="FeeAmount" class="control-label col-md-4"></label>
+                                                <input asp-for="FeeAmount" class="form-control" />
+                                                <span asp-validation-for="FeeAmount" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                            <a asp-action="ViewFees" class="btn btn-default">Back to List</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

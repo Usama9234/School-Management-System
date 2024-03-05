@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace School_Management_System.Models.Admin
 {
-    public class Fees
+    public class Subjects
     {
         [Key]
-        public int FeeId { get; set; }
+        public int SubjectId { get; set; }
 
         [Required]
         public int ClassId { get; set; }
@@ -16,8 +15,8 @@ namespace School_Management_System.Models.Admin
         [Required]
         public List<Classes> ClassesList { get; set; }
 
-        [Required(ErrorMessage = "Fee amount is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "Invalid fee amount ")]
-        public int FeeAmount { get; set; }
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        public string SubjectName { get; set; }
     }
 }

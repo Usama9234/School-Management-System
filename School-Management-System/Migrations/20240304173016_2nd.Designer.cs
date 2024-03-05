@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using School_Management_System.Data;
 
@@ -11,9 +12,11 @@ using School_Management_System.Data;
 namespace School_Management_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240304173016_2nd")]
+    partial class _2nd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,23 +36,11 @@ namespace School_Management_System.Migrations
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClassName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<string>("SubjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TeacherId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Teachername")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AssignedSubjectId");
 
@@ -115,27 +106,6 @@ namespace School_Management_System.Migrations
                     b.HasIndex("ClassId");
 
                     b.ToTable("fees");
-                });
-
-            modelBuilder.Entity("School_Management_System.Models.Admin.StaffSalary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("SalaryAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("staffSalaries");
                 });
 
             modelBuilder.Entity("School_Management_System.Models.Admin.StudentDetails", b =>
@@ -246,9 +216,6 @@ namespace School_Management_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StaffSalaryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeacherAdress")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -273,8 +240,6 @@ namespace School_Management_System.Migrations
                     b.HasKey("TeacherId");
 
                     b.HasIndex("AssignedSubjectsAssignedSubjectId");
-
-                    b.HasIndex("StaffSalaryId");
 
                     b.HasIndex("TeacherDetailsTeacherId");
 
@@ -322,17 +287,6 @@ namespace School_Management_System.Migrations
                     b.Navigation("Class");
                 });
 
-            modelBuilder.Entity("School_Management_System.Models.Admin.StaffSalary", b =>
-                {
-                    b.HasOne("School_Management_System.Models.Admin.TeacherDetails", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Teacher");
-                });
-
             modelBuilder.Entity("School_Management_System.Models.Admin.StudentDetails", b =>
                 {
                     b.HasOne("School_Management_System.Models.Admin.Classes", "Class")
@@ -365,10 +319,6 @@ namespace School_Management_System.Migrations
                         .WithMany("TeachersList")
                         .HasForeignKey("AssignedSubjectsAssignedSubjectId");
 
-                    b.HasOne("School_Management_System.Models.Admin.StaffSalary", null)
-                        .WithMany("TeacherLists")
-                        .HasForeignKey("StaffSalaryId");
-
                     b.HasOne("School_Management_System.Models.Admin.TeacherDetails", null)
                         .WithMany("TeachersList")
                         .HasForeignKey("TeacherDetailsTeacherId");
@@ -386,11 +336,6 @@ namespace School_Management_System.Migrations
             modelBuilder.Entity("School_Management_System.Models.Admin.Fees", b =>
                 {
                     b.Navigation("ClassesList");
-                });
-
-            modelBuilder.Entity("School_Management_System.Models.Admin.StaffSalary", b =>
-                {
-                    b.Navigation("TeacherLists");
                 });
 
             modelBuilder.Entity("School_Management_System.Models.Admin.StudentDetails", b =>

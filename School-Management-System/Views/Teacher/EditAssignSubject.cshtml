@@ -1,0 +1,142 @@
+﻿@model School_Management_System.Models.Admin.AssignedSubjects
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor accessor
+
+
+@{
+    ViewBag.Title = "AssignSubject";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Teachers</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Assign Subject</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title m-b-0"><i class="fas fa-users"></i> Assign Subject</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class=" card-body">
+                            <form asp-action="EditAssignSubject" asp-controller="Teacher" method="post" enctype="multipart/form-data">
+
+                                <div class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-5">Teacher Name</label>
+                                        <span class="form-control">@accessor.HttpContext.Session.GetString("TeacherName")</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Classes</label>
+                                         <select asp-for="ClassId" class="form-control" id="classDropdown">
+                                            <option value="">Select a Class</option>
+                                            @foreach (var item in Model.ClassesList)
+                                            {
+                                                <option value="@item.ClassId">@item.ClassName</option>
+                                            }
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Subjects</label>
+                                        <select asp-for="SubjectId" class="form-control" id="subjectDropdown">
+                                            <option value="">Select a Subject</option>
+                                            <!-- Subjects will be dynamically added here based on the selected class -->
+                                        </select>
+                                    </div>
+
+                                    @section scripts {
+                                        <script>
+                                            $(document).ready(function () {
+                                                $("#classDropdown").change(function () {
+                                                    var selectedClassId = $(this).val();
+
+                                                    // Clear the subjects dropdown
+                                                    $("#subjectDropdown").empty().append('<option value="">Select a Subject</option>');
+
+                                                    if (selectedClassId) {
+                                                        // Make an AJAX call to fetch subjects for the selected class
+                                                        $.ajax({
+                                                            url: "/Teacher/GetSubjects",  // Replace ControllerName with your actual controller name
+                                                            type: "GET",
+                                                            data: { classId: selectedClassId },
+                                                            success: function (data) {
+                                                                console.log("Received data from server:", data);  // Log the received data
+
+                                                                // Check if data is an array and not empty
+                                                                if (Array.isArray(data) && data.length > 0) {
+                                                                    // Populate the subjects dropdown
+                                                                    data.forEach(function (subject) {
+                                                                        $("#subjectDropdown").append('<option value="' + subject.subjectId + '">' + subject.subjectName + '</option>');
+                                                                    });
+                                                                } else {
+                                                                    console.error("Received empty or invalid data.");
+                                                                }
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                                console.error("AJAX request failed:", error);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                                /*
+                                                // Add change event for subject dropdown
+                                                $("#subjectDropdown").change(function () {
+                                                    var selectedSubjectId = $(this).val();
+
+                                                   // Redirect to the action method with the selected subject ID
+                                                    window.location.href = "/Teacher/AssignSubject?subjectId=" + selectedSubjectId;
+                                                });
+                                                */
+                                            });
+                                        </script>
+                                    }
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="submit" class="btn btn-default">Update</button>
+                                            <a asp-action="ViewAssignSubjects" asp-controller="Teacher" class="btn btn-default">Back to List</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

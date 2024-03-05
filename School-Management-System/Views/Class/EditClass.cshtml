@@ -1,0 +1,73 @@
+﻿@model School_Management_System.Models.Admin.Classes
+
+@{
+    ViewData["Title"] = "EditClass";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a a asp-action="ViewClasses">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Class</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title m-b-0"><i class="fas fa-calendar-alt"></i> Edit Class</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class=" card-body">
+                            <form asp-controller="Class" asp-action="EditClass" method="post">
+
+                                <div class="form-horizontal">
+                                    <input asp-for="ClassId" type="hidden" />
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="ClassName" class="control-label col-md-3"></label>
+                                                <input asp-for="ClassName" class="form-control" />
+                                                <span asp-validation-for="ClassName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="submit" class="btn btn-default">Update</button>
+                                        <a asp-action="ViewClasses" asp-controller="Class" class="btn btn-default">Back to List</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
